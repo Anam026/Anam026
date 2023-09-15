@@ -1,0 +1,155 @@
+public class Main
+{
+  public static void main (String[] args)
+  {
+    // Create an instance of MyLongArray with a size of 10
+    MyLongArray longArray = new MyLongArray(10);
+
+    // Insert values into the array
+    longArray.insert(35);
+    longArray.insert(76);
+    longArray.insert(23);
+    longArray.insert(42);
+    longArray.insert(89);
+
+    // Display the contents of the array
+    longArray.display();
+
+    // Find the index of the value 76 in the array
+    System.out.println("Index of 76: " + longArray.find(76));
+
+    // Find the index of the value 50 in the array
+    System.out.println("Index of 50: " + longArray.find(50));
+
+    // Delete the value 42 from the array
+    longArray.delete(42);
+
+    // Display the contents of the array after deletion
+    longArray.display();
+
+    // Insert the value 99 at index 2
+    longArray.insert(2, 99);
+
+    // Display the contents of the array after insertion
+    longArray.display();
+
+    // Delete the element at index 1 (which is 76)
+    longArray.deleteAtIndex(1);
+
+    // Display the contents of the array after deletion
+    longArray.display();
+  }
+}
+class MyLongArray
+{
+  private long[] array;
+  private int currentIndex;
+
+  // Constructor: Initialize the array with a specified size
+  public MyLongArray(int size)
+  {
+    array = new long[size];
+    currentIndex = 0;
+  }
+
+  // Find the index of a given searchKey in the array
+  public int find(long searchKey)
+  {
+    for (int i = 0; i < currentIndex; i++)
+    {
+      if (array[i] == searchKey)
+      {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  // Insert a value into the array
+  public void insert(long value)
+  {
+    if (currentIndex < array.length)
+    {
+      array[currentIndex] = value;
+      currentIndex++;
+    }
+    else
+    {
+      System.out.println("Array is full so cannot insert");
+    }
+  }
+
+  // Get an element at a specific index
+  public long getElem(int index)
+  {
+    if (index >= 0 && index < currentIndex)
+    {
+      return array[index];
+    }
+    else
+    {
+      return -1;
+    }
+  }
+
+  // Delete a value from the array
+  public boolean delete(long value)
+  {
+    int index = find(value);
+    if (index != -1)
+    {
+      for (int i = index; i < currentIndex - 1; i++)
+      {
+        array[i] = array[i + 1];
+      }
+      currentIndex--;
+      return true;
+    }
+    return false;
+  }
+
+  // Delete an element at a specific index
+  public void deleteAtIndex(int index)
+  {
+    if (index >= 0 && index < currentIndex)
+    {
+      for (int i = index; i < currentIndex - 1; i++)
+      {
+        array[i] = array[i + 1];
+      }
+      currentIndex--;
+    }
+    else
+    {
+      System.out.println("Invalid index");
+    }
+  }
+
+  // Insert a value at a specific index
+  public void insert(int index, long value)
+  {
+    if (currentIndex < array.length && index >= 0 && index <= currentIndex)
+    {
+      for (int i = currentIndex; i > index; i--)
+      {
+        array[i] = array[i - 1];
+      }
+      array[index] = value;
+      currentIndex++;
+    }
+    else
+    {
+      System.out.println("Invalid index or array is full so cannot insert");
+    }
+  }
+
+  // Display the contents of the array
+  public void display()
+  {
+    for (int i = 0; i < currentIndex; i++)
+    {
+      System.out.print(array[i] + " ");
+    }
+    System.out.println();
+  }
+}
